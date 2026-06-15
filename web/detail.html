@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISI-MARKET - Détail</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .layout-detail { display: flex; gap: 30px; margin-top: 20px; flex-wrap: wrap; }
+        .left-main-box { flex: 2; background: white; padding: 30px; border-radius: 12px; border: 1px solid var(--border); min-width: 300px; }
+        .right-sidebar-box { flex: 1; display: flex; flex-direction: column; gap: 20px; min-width: 280px; }
+        .side-widget { background: white; padding: 25px; border-radius: 12px; border: 1px solid var(--border); }
+        
+        .main-product-img { width: 100%; max-height: 380px; object-fit: cover; border-radius: 8px; }
+        .badge-price { display: inline-block; background: var(--primary); color: white; padding: 10px 22px; font-size: 1.4rem; font-weight: bold; border-radius: 6px; margin: 15px 0; }
+        
+        .btn-sidebar-primary { background: var(--primary); color: white; border: none; width: 100%; padding: 14px; font-weight: bold; border-radius: 6px; cursor: pointer; margin-bottom: 10px; }
+        .btn-sidebar-secondary { background: white; color: var(--text-dark); border: 1px solid var(--border); width: 100%; padding: 12px; border-radius: 6px; cursor: pointer; font-weight: 500; }
+        .btn-danger-action { color: #DC3545; border-color: #F8D7DA; }
+        
+        .tags-row span { background: var(--light-bg); padding: 6px 12px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; margin-right: 10px; }
+        .profile-vendeur { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+        .profile-avatar { width: 48px; height: 48px; background: #CBD5E1; border-radius: 50%; }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <a href="index.html" class="logo">ISI-MARKET</a>
+        <nav>
+            <a href="index.html">Annonces</a>
+            <a href="formulaire.html" class="btn-publier">Publier</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <a href="index.html" style="text-decoration: none; color: var(--primary); font-weight: bold;">← Retour à l'accueil</a>
+        
+        <div class="layout-detail">
+            <div class="left-main-box">
+                <img class="main-product-img" src="../img/Mac_Book.jpg" alt="MacBook Pro">
+                <div class="badge-price">250,000 FCFA</div>
+                <h1 style="margin: 10px 0 20px 0; font-size: 2rem;">MacBook Pro 13" - État comme neuf</h1>
+                
+                <div class="tags-row" style="margin-bottom: 25px;">
+                    <span style="color: var(--accent);">💻 ÉLECTRONIQUE</span>
+                    <span style="color: #28A745;">EXCELLENT ÉTAT</span>
+                    <span style="color: var(--text-muted);">🕒 Posté le 12 Octobre 2023</span>
+                </div>
+                <hr style="border:0; border-top:1px solid var(--border); margin:25px 0;">
+                <h3>Description</h3>
+                <p style="line-height: 1.6; color: #334155;">
+                    Je vends mon MacBook Pro 13 pouces (Puce M1, 8 Go RAM, 256 Go SSD) car j'ai terminé mes études. L'ordinateur a toujours été utilisé avec une coque de protection et n'a aucune rayure. Vendu avec sa boîte d'origine. Remise en main propre sur le campus.
+                </p>
+            </div>
+
+            <div class="right-sidebar-box">
+                <div class="side-widget">
+                    <h3 style="margin-top:0; color:var(--primary); font-size:1.1rem; margin-bottom:15px;">Vendeur</h3>
+                    <div class="profile-vendeur">
+                        <div class="profile-avatar"></div>
+                        <div>
+                            <strong style="display:block;">Alassane Sow</strong>
+                            <span style="font-size:0.85rem; color:var(--text-muted);">Étudiant - Licence 1</span>
+                        </div>
+                    </div>
+                    <button class="btn-sidebar-primary">✉ Contacter le vendeur</button>
+                    <button class="btn-sidebar-secondary">📞 Voir le numéro</button>
+                </div>
+
+                <div class="side-widget" style="background: #F8FAFC;">
+                    <h4 style="margin-top:0; color:var(--primary);">GESTION DE L'ANNONCE</h4>
+                    <button class="btn-sidebar-secondary" style="margin-bottom:10px; width:100%; box-sizing:border-box;">✓ Marquer comme vendu</button>
+                    <button class="btn-sidebar-secondary btn-danger-action" style="width:100%; box-sizing:border-box;">🗑 Supprimer l'annonce</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>ISI-MARKET</h3>
+                <p>La plateforme exclusive d'échange pour les étudiants et alumni du Groupe ISI.</p>
+            </div>
+            <div class="footer-links">
+                <h4>NAVIGATION</h4>
+                <a href="index.html">Annonces</a>
+                <a href="formulaire.html">Déposer une annonce</a>
+                <a href="stats.html" style="color: #94A3B8;">📈 Tableau de bord</a>
+            </div>
+            <div class="footer-legal">
+                <h4>LÉGAL</h4>
+                <a href="#">Mentions Légales</a>
+                <a href="#">Confidentialité</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Groupe ISI - Marketplace Étudiante | Made for students, by students.</p>
+        </div>
+    </footer>
+</body>
+</html>

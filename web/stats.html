@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISI-MARKET - Statistiques</title>
+    <style>
+        :root {
+            --primary: #0A2540;
+            --accent: #FF6B00;
+            --light-bg: #F4F6F9;
+            --text-dark: #1E293B;
+            --text-muted: #64748B;
+            --border: #E2E8F0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-dark);
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 5%;
+            background: #FFFFFF;
+            border-bottom: 1px solid var(--border);
+            sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .btn-publier {
+            background: var(--accent);
+            color: #FFFFFF !important;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .stats-header-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+
+        .stats-header-box h2 {
+            color: var(--primary);
+            margin: 0 0 5px 0;
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .stats-header-box p {
+            color: var(--text-muted);
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .btn-export {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background: #FFFFFF;
+            padding: 22px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .kpi-card h3 {
+            margin: 0;
+            font-size: 0.8rem;
+            color: #94A3B8;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .kpi-card .value {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 10px 0 5px 0;
+        }
+
+        .kpi-card .sub-text {
+            font-size: 0.8rem;
+            color: #28A745;
+            font-weight: 600;
+        }
+
+        .status-container {
+            margin-top: 12px;
+        }
+
+        .status-row {
+            font-size: 0.8rem;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3px;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            background: #E2E8F0;
+            height: 6px;
+            border-radius: 3px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .progress-fill-primary {
+            background: var(--primary);
+            height: 100%;
+            width: 75%;
+        }
+
+        .progress-fill-accent {
+            background: var(--accent);
+            height: 100%;
+            width: 25%;
+        }
+
+        .live-badge-right {
+            position: absolute;
+            right: 20px;
+            top: 30px;
+            border: 1px solid var(--border);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            background: #FFFFFF;
+        }
+
+        .dashboard-layout {
+            display: flex;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .left-column {
+            flex: 2;
+            min-width: 500px;
+        }
+
+        .right-column {
+            flex: 1;
+            min-width: 300px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .table-box {
+            background: #FFFFFF;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .table-box h3 {
+            margin-top: 0;
+            color: var(--primary);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .data-table th {
+            padding: 12px;
+            border-bottom: 2px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .data-table td {
+            padding: 15px 12px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.95rem;
+            color: var(--text-dark);
+        }
+
+        .category-cell {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+        }
+
+        .widget-box {
+            background: #FFFFFF;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .widget-header h4 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .widget-tag {
+            font-size: 0.65rem;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .tag-blue {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .tag-green {
+            border: 1px solid #28A745;
+            color: #28A745;
+        }
+
+        .widget-product {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .widget-img {
+            width: 60px;
+            height: 60px;
+            background: #CBD5E1;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        .widget-info strong {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-weight: 700;
+        }
+
+        .widget-info .time-cat {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: block;
+            margin: 2px 0;
+        }
+
+        .widget-info .price {
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.85rem;
+        }
+
+        .chart-box {
+            background: var(--primary);
+            color: #FFFFFF;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .chart-box h4 {
+            margin: 0;
+            font-size: 0.95rem;
+            font-weight: 700;
+        }
+
+        .chart-box p {
+            font-size: 0.75rem;
+            color: #94A3B8;
+        }
+
+        .chart-bars {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            height: 90px;
+            margin-top: 20px;
+            padding: 0 5px;
+        }
+
+        .bar {
+            width: 16px;
+            background: var(--accent);
+            border-radius: 4px 4px 0 0;
+        }
+
+        footer {
+            background: var(--primary);
+            color: #FFFFFF;
+            padding: 40px 5% 20px;
+            margin-top: 60px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto 30px;
+        }
+
+        .footer-about {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .footer-about h3 {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+
+        .footer-about p {
+            color: #94A3B8;
+            font-size: 0.9rem;
+        }
+
+        .footer-links,
+        .footer-legal {
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .footer-links h4,
+        .footer-legal h4 {
+            font-size: 0.9rem;
+            color: #94A3B8;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+        }
+
+        .footer-links a,
+        .footer-legal a {
+            color: #FFFFFF;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            border-top: 1px solid #1E293B;
+            padding-top: 20px;
+            font-size: 0.85rem;
+            color: #94A3B8;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="navbar">
+        <a href="index.html" class="logo">ISI-MARKET</a>
+        <nav class="nav-links">
+            <a href="index.html">Livres</a>
+            <a href="index.html">Électronique</a>
+            <a href="index.html">Logement</a>
+            <a href="index.html">Services</a>
+            <a href="formulaire.html" class="btn-publier">Publier</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="stats-header-box">
+            <div>
+                <h2>Tableau de bord statistique</h2>
+                <p>Visualisez les performances et les tendances du marché étudiant en temps réel.</p>
+            </div>
+            <button class="btn-export">📥 Exporter en JSON</button>
+        </div>
+
+        <section class="kpi-grid">
+            <div class="kpi-card">
+                <h3>Total Annonces</h3>
+                <div class="value">1,284</div>
+                <div class="sub-text">▲ +12% vs mois dernier</div>
+            </div>
+            <div class="kpi-card">
+                <h3>Étudiants Actifs</h3>
+                <div class="value">856</div>
+                <div class="sub-text" style="color: var(--text-muted);">👤 Utilisateurs vérifiés</div>
+            </div>
+            <div class="kpi-card" style="min-width: 320px;">
+                <h3>Répartition des statuts</h3>
+                <div class="status-container">
+                    <div class="status-row"><span>Disponible</span><span>75%</span></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill-primary"></div>
+                    </div>
+                    <div class="status-row"><span>Vendu / Clôturé</span><span>25%</span></div>
+                    <div class="progress-bar">
+                        <div class="progress-fill-accent"></div>
+                    </div>
+                </div>
+                <div class="live-badge-right">
+                    <strong style="display:block; font-size:1.2rem; color:var(--primary);">963</strong>
+                    <span style="font-size:0.7rem; color:var(--text-muted); font-weight:600;">Annonces Live</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="dashboard-layout">
+            <div class="left-column">
+                <div class="table-box">
+                    <h3>Performance par Catégorie</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Catégorie</th>
+                                <th>Annonces</th>
+                                <th>Prix Moyen</th>
+                                <th>Tendance</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="category-cell"><span>📚</span> Livres & Cours</td>
+                                <td>452</td>
+                                <td>15,500 FCFA</td>
+                                <td style="color:#28A745; font-weight:bold;">▲</td>
+                            </tr>
+                            <tr>
+                                <td class="category-cell"><span>💻</span> Électronique</td>
+                                <td>312</td>
+                                <td>145,000 FCFA</td>
+                                <td style="color:var(--accent); font-weight:bold;">➔</td>
+                            </tr>
+                            <tr>
+                                <td class="category-cell"><span>🏠</span> Logement</td>
+                                <td>86</td>
+                                <td>85,000 FCFA/m</td>
+                                <td style="color:#28A745; font-weight:bold;">▲</td>
+                            </tr>
+                            <tr>
+                                <td class="category-cell"><span>🛠️</span> Services</td>
+                                <td>214</td>
+                                <td>5,000 FCFA/h</td>
+                                <td style="color:#DC3545; font-weight:bold;">▼</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="right-column">
+                <div class="widget-box">
+                    <div class="widget-header">
+                        <h4>Dernière publication</h4>
+                        <span class="widget-tag tag-blue">Nouveau</span>
+                    </div>
+                    <div class="widget-product">
+                        <img class="widget-img" src="../img/livre.jpg" alt="Livre">
+                        <div class="widget-info">
+                            <strong>Calculus: Early Transcendentals</strong>
+                            <span class="time-cat">Il y a 5 minutes</span>
+                            <span class="price">12,500 FCFA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="widget-box">
+                    <div class="widget-header">
+                        <h4>Prix le plus bas</h4>
+                        <span class="widget-tag tag-green">Éco</span>
+                    </div>
+                    <div class="widget-product">
+                        <img class="widget-img" src="../img/stylos.png" alt="Stylos">
+                        <div class="widget-info">
+                            <strong>Lot de stylos graphiques</strong>
+                            <span class="time-cat">Papeterie</span>
+                            <span class="price" style="color:#28A745;">500 FCFA</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chart-box">
+                    <h4>Activité Hebdomadaire</h4>
+                    <p>Volume des transactions</p>
+                    <div class="chart-bars">
+                        <div class="bar" style="height: 35%;"></div>
+                        <div class="bar" style="height: 60%;"></div>
+                        <div class="bar" style="height: 25%;"></div>
+                        <div class="bar" style="height: 80%;"></div>
+                        <div class="bar" style="height: 50%;"></div>
+                        <div class="bar" style="height: 70%;"></div>
+                        <div class="bar" style="height: 95%;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>ISI-MARKET</h3>
+                <p>La plateforme exclusive d'échange pour les étudiants du Groupe ISI.</p>
+            </div>
+            <div class="footer-links">
+                <h4>Navigation</h4>
+                <a href="index.html">Accueil</a>
+                <a href="formulaire.html">Déposer une annonce</a>
+                <a href="stats.html">📈 Tableau de bord</a>
+            </div>
+            <div class="footer-legal">
+                <h4>Légal</h4>
+                <a href="#">Mentions Légales</a>
+                <a href="#">Règles de Diffusion</a>
+                <a href="#">Confidentialité</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Groupe ISI - Marketplace Étudiante</p>
+        </div>
+    </footer>
+</body>
+</html>

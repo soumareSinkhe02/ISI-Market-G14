@@ -1,0 +1,88 @@
+:root {
+    --primary: #0A2540;     /* Bleu foncé ISI */
+    --accent: #FF6B00;      /* Orange boutons */
+    --light-bg: #F4F6F9;    /* Fond général */
+    --card-bg: #FFFFFF;
+    --text-dark: #1E293B;
+    --text-muted: #64748B;
+    --border: #E2E8F0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--light-bg);
+    color: var(--text-dark);
+}
+
+/* Navbar unifiée */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background: white;
+    border-bottom: 1px solid var(--border);
+}
+.logo { 
+    font-size: 1.5rem; 
+    font-weight: bold; 
+    color: var(--primary); 
+    text-decoration: none;
+}
+nav a { 
+    text-decoration: none; 
+    color: var(--text-dark); 
+    margin-right: 25px; 
+    font-weight: 500; 
+}
+nav a:hover {
+    color: var(--accent);
+}
+.btn-publier { 
+    background: var(--accent); 
+    color: white !important; 
+    padding: 10px 22px; 
+    border-radius: 6px; 
+    font-weight: bold; 
+    text-decoration: none; 
+}
+
+/* Conteneur principal global */
+.container { 
+    max-width: 1200px; 
+    margin: 30px auto; 
+    padding: 0 20px; 
+    min-height: 70vh;
+}
+
+/* Footer identique pour les 4 pages */
+footer { 
+    background: var(--primary); 
+    color: white; 
+    padding: 40px 5% 20px; 
+    margin-top: 60px; 
+}
+.footer-content { 
+    display: flex; 
+    justify-content: space-between; 
+    flex-wrap: wrap; 
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto 30px auto;
+}
+.footer-about { flex: 2; min-width: 250px; }
+.footer-links, .footer-legal { flex: 1; min-width: 150px; }
+.footer-content h3 { margin-top: 0; font-size: 1.4rem; color: white; }
+.footer-content h4 { margin-top: 0; font-size: 1rem; color: #94A3B8; text-transform: uppercase; }
+.footer-content p { color: #94A3B8; line-height: 1.6; }
+.footer-content a { color: white; display: block; margin-bottom: 10px; text-decoration: none; font-size: 0.95rem; }
+.footer-content a:hover { color: var(--accent); }
+.footer-bottom { 
+    text-align: center; 
+    border-top: 1px solid #1E293B; 
+    padding-top: 20px; 
+    font-size: 0.9rem; 
+    color: #94A3B8; 
+}

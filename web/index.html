@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISI-MARKET - Accueil</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .hero {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+        }
+
+        .hero-text {
+            max-width: 55%;
+        }
+
+        .hero-text h1 {
+            color: var(--primary);
+            font-size: 2.3rem;
+            margin-top: 0;
+        }
+
+        .hero-text span {
+            color: var(--accent);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn-hero-primary {
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .btn-hero-secondary {
+            background: white;
+            color: var(--primary);
+            padding: 12px 24px;
+            border-radius: 6px;
+            text-decoration: none;
+            border: 2px solid var(--primary);
+            font-weight: bold;
+        }
+
+        .hero-image-container {
+            position: relative;
+            max-width: 40%;
+        }
+
+        .hero-img {
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        .badge-live-stats {
+            position: absolute;
+            bottom: -15px;
+            left: 20px;
+            background: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-section {
+            background: #FFFFFF;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .search-section input,
+        .search-section select {
+            padding: 10px 15px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        .search-results-count {
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .fast-filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        .filter-btn {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .grid-annonces {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            position: relative;
+            transition: transform 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img {
+            height: 180px;
+            background: #E2E8F0;
+            width: 100%;
+            object-fit: cover;
+        }
+
+        .price-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            font-weight: bold;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            font-size: 0.7rem;
+            border: 1px solid #333;
+            border-radius: 4px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .status-badge.sold {
+            border-color: #DC3545;
+            color: #DC3545;
+        }
+
+        .card-category {
+            font-size: 0.75rem;
+            font-weight: bold;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin: 0;
+        }
+
+        .card-title {
+            margin: 5px 0;
+            font-size: 1.05rem;
+            font-weight: bold;
+        }
+
+        .card-location {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 5px 0 0 0;
+        }
+
+        .load-more-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .btn-load-more {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="navbar">
+        <a href="index.html" class="logo">ISI-MARKET</a>
+        <nav>
+            <a href="#">Livres</a>
+            <a href="#">Électronique</a>
+            <a href="#">Logement</a>
+            <a href="#">Services</a>
+            <a href="formulaire.html" class="btn-publier">Publier</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <div class="hero-text">
+                <h1>La Marketplace officielle pour les étudiants du <span>Groupe ISI</span></h1>
+                <p>Achetez, vendez et échangez en toute sécurité au sein de votre communauté universitaire.</p>
+                <div class="hero-buttons">
+                    <a href="#catalogue" class="btn-hero-primary">Découvrir les annonces</a>
+                    <a href="#" class="btn-hero-secondary">En savoir plus</a>
+                </div>
+            </div>
+            <div class="hero-image-container">
+                <img class="hero-img" src="../img/illustration.jpg" alt="Campus">
+                <div class="badge-live-stats">
+                    <span>📈</span>
+                    <div><strong>1,250+</strong> <span style="font-size:0.75rem; color:var(--text-muted);">Annonces
+                            actives</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="catalogue">
+            <div class="search-section">
+                <input type="text" placeholder="🔍 Que recherchez-vous aujourd'hui ?">
+                <input type="text" placeholder="Prix: Min - Max">
+                <select>
+                    <option>Plus récentes</option>
+                </select>
+                <span class="search-results-count">15 annonces trouvées</span>
+            </div>
+
+            <div class="fast-filters">
+                <button class="filter-btn active">🔳 Toutes</button>
+                <button class="filter-btn">📚 Livres</button>
+                <button class="filter-btn">💻 Électronique</button>
+                <button class="filter-btn">🏠 Logement</button>
+                <button class="filter-btn">🛠️ Services</button>
+            </div>
+        </section>
+
+        <section class="listings-section">
+            <div class="grid-annonces">
+                <!-- Carte 1 -->
+                <a href="detail.html" class="card">
+                    <div class="price-tag">15,000 FCFA</div>
+                    <img class="card-img" src="../img/livre.jpg" alt="Livre">
+                    <div class="card-content">
+                        <span class="status-badge">DISPONIBLE</span>
+                        <p class="card-category">Livres</p>
+                        <h3 class="card-title">Manuel Algorithmique...</h3>
+                        <p class="card-location">📍 Campus Dakar</p>
+                    </div>
+                </a>
+                <!-- Carte 2 -->
+                <a href="detail.html" class="card">
+                    <div class="price-tag">250,000 FCFA</div>
+                    <img class="card-img" src="../img/Mac_Book.jpg" alt="MacBook">
+                    <div class="card-content">
+                        <span class="status-badge">DISPONIBLE</span>
+                        <p class="card-category">Électronique</p>
+                        <h3 class="card-title">MacBook Air M1</h3>
+                        <p class="card-location">📍 Point E, Dakar</p>
+                    </div>
+                </a>
+                <!-- Carte 3 -->
+                <a href="detail.html" class="card">
+                    <div class="price-tag">120,000 FCFA</div>
+                    <img class="card-img" src="../img/meuble.jpg" alt="Studio">
+                    <div class="card-content">
+                        <span class="status-badge">DISPONIBLE</span>
+                        <p class="card-category">Logement</p>
+                        <h3 class="card-title">Studio Meublé Proche ISI</h3>
+                        <p class="card-location">📍 Fann Résidence</p>
+                    </div>
+                </a>
+                <!-- Carte 4 -->
+                <a href="detail.html" class="card">
+                    <div class="price-tag">5,000 FCFA/h</div>
+                    <img class="card-img" src="../img/programmation.jpg" alt="Cours">
+                    <div class="card-content">
+                        <span class="status-badge">DISPONIBLE</span>
+                        <p class="card-category">Services</p>
+                        <h3 class="card-title">Cours de Programmation</h3>
+                        <p class="card-location">📍 En ligne / Campus</p>
+                    </div>
+                </a>
+                <!-- Carte 5 -->
+                <a href="detail.html" class="card">
+                    <div class="price-tag">45,000 FCFA</div>
+                    <img class="card-img" src="../img/casque.jpg" alt="Casque">
+                    <div class="card-content">
+                        <span class="status-badge alert sold">VENDU</span>
+                        <p class="card-category">Électronique</p>
+                        <h3 class="card-title">Casque Sony WH-1000XM4</h3>
+                        <p class="card-location">📍 Dakar Plateau</p>
+                    </div>
+                </a>
+            </div>
+            <div class="load-more-container">
+                <button class="btn-load-more">Voir plus d'annonces ∨</button>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <h3>ISI-MARKET</h3>
+                <p>La plateforme exclusive d'échange pour les étudiants et alumni du Groupe ISI.</p>
+            </div>
+            <div class="footer-links">
+                <h4>NAVIGATION</h4>
+                <a href="index.html">Annonces</a>
+                <a href="formulaire.html">Déposer une annonce</a>
+                <a href="stats.html" style="color: #94A3B8;">📈 Tableau de bord</a>
+            </div>
+            <div class="footer-legal">
+                <h4>LÉGAL</h4>
+                <a href="#">Mentions Légales</a>
+                <a href="#">Confidentialité</a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Groupe ISI - Marketplace Étudiante | Made for students, by students.</p>
+        </div>
+    </footer>
+</body>
+
+</html>
